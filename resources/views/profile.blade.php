@@ -94,7 +94,16 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <h4 class="card-header">Avatar</h4>
-                                <div class="card-body"></div>
+                                <div class="card-body">
+                                    <form @submit.prevent=""  enctype="multipart/form-data">
+                                        <span class="bg-dark p-5 rounded-circle d-flex justify-content-center align-items-center mx-auto position-relative" style="width: 180px;height: 180px">
+                                            <div  class="rounded-circle profile-photo position-absolute  w-100 h-100"></div>
+                                            <input id="avatar"  type="file" class="w-100 h-100 position-absolute opacity-0" name="avatar" accept="image/*"/>
+                                        </span>
+                                        <button class="btn btn-primary d-block mt-3 mx-auto" disabled>Update Avatar</button>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -159,4 +168,28 @@
     </div>
 
 </div>
+
+<script>
+
+    document.querySelector('#avatar').onchange = function () {
+
+        let reader = new FileReader();
+        reader.addEventListener('load',()=> {
+            const image = reader.result;
+            document.querySelector('.profile-photo').style.backgroundImage = `url('${image}')`;
+            document.querySelector('#submit-image').removeAttribute('disabled');
+        })
+        reader.readAsDataURL(this.files[0]);
+    }
+
+</script>
+
+<style>
+    .profile-photo {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+</style>
+
 @endsection
